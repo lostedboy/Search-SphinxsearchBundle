@@ -1,6 +1,6 @@
 <?php
 
-namespace Search\SphinxsearchBundle\Services\Search;
+namespace emgiezet\SphinxsearchBundle\Services\Search;
 
 /**
  * 
