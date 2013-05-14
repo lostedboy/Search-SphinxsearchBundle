@@ -1,7 +1,7 @@
 About SphinxsearchBundle
 ========================
 
-
+This is a fork. With updated service methods to cover more in the sphinx api.
 
 Installation:
 -------------
