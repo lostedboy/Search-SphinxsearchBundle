@@ -1,6 +1,6 @@
 <?php
 
-namespace Search\SphinxsearchBundle\DependencyInjection;
+namespace emgiezet\SphinxsearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
