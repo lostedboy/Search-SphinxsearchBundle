@@ -177,9 +177,9 @@ class Sphinxsearch
          * Build the list of indexes to be queried.
          */
         $indexNames = '';
-        foreach ( $indexes as &$label ) {
-            if( isset($this->_indexes[$label]) )
-                $indexNames .= $this->_indexes[$label] . ' ';
+        foreach ( $indexes as $key => $value ) {
+            if( isset($this->_indexes[$key]) )
+                $indexNames .= $this->_indexes[$key] . ' ';
         }
 
         /**
