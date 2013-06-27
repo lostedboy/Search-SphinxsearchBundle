@@ -178,8 +178,9 @@ class Sphinxsearch
          */
         $indexNames = '';
         foreach ( $indexes as $key => $value ) {
-            if( isset($this->_indexes[$key]) )
-                $indexNames .= $this->_indexes[$key] . ' ';
+            if(in_array($value, $this->_indexes))
+
+                $indexNames .= $value . ' ';
         }
 
         /**
@@ -223,9 +224,10 @@ class Sphinxsearch
     public function addQuery($query, array $indexes)
     {
         $indexNames = '';
-        foreach ( $indexes as &$label ) {
-            if( isset($this->_indexes[$label]) )
-                $indexNames .= $this->_indexes[$label] . ' ';
+        foreach ( $indexes as $key => $value ) {
+            if(in_array($value, $this->_indexes))
+
+                $indexNames .= $value . ' ';
         }
 
         if( !empty($indexNames) )
