@@ -21,14 +21,29 @@ class Configuration implements ConfigurationInterface
         $this->addIndexerSection($rootNode);
         $this->addIndexesSection($rootNode);
         $this->addSearchdSection($rootNode);
+        $this->addApiSection($rootNode);
 
         return $treeBuilder;
     }
+
+    protected function addApiSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+            ->arrayNode('api')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('path')->defaultNull()->end()
+            ->end()
+            ->end()
+            ->end();
+    }
+
     /**
      * Adding indexer to config
-     * 
+     *
      * @param ArrayNodeDefinition $node the root node
-     * 
+     *
      * @return null
      */
     protected function addIndexerSection(ArrayNodeDefinition $node)
@@ -43,11 +58,12 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end();
     }
+
     /**
      * Adding indexes to config
-     * 
+     *
      * @param ArrayNodeDefinition $node the root node
-     * 
+     *
      * @return null
      */
     protected function addIndexesSection(ArrayNodeDefinition $node)
@@ -62,11 +78,12 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end();
     }
+
     /**
      * Adding searchd to config
-     * 
+     *
      * @param ArrayNodeDefinition $node the root node
-     * 
+     *
      * @return null
      */
     protected function addSearchdSection(ArrayNodeDefinition $node)
