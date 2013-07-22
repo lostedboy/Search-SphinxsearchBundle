@@ -3,7 +3,7 @@
 namespace Lostedboy\SphinxsearchBundle\Services\Search;
 
 /**
- * 
+ *
  */
 class Sphinxsearch
 {
@@ -45,8 +45,8 @@ class Sphinxsearch
      * @param string $host    The server's host name/IP.
      * @param string $port    The port that the server is listening on.
      * @param string $socket  The UNIX socket that the server is listening on.
-     * @param array  $indexes The list of indexes that can be used.
-     * 
+     * @param array $indexes The list of indexes that can be used.
+     *
      * @return null
      */
     public function __construct($host = 'localhost', $port = '9312', $socket = null, array $indexes = array())
@@ -57,7 +57,7 @@ class Sphinxsearch
         $this->_indexes = $indexes;
 
         $this->_sphinx = new \SphinxClient();
-        if( $this->_socket !== null )
+        if ($this->_socket !== null)
             $this->_sphinx->setServer($this->_socket);
         else
             $this->_sphinx->setServer($this->_host, $this->_port);
@@ -79,7 +79,7 @@ class Sphinxsearch
      * Set the desired match mode.
      *
      * @param int $mode The matching mode to be used.
-     * 
+     *
      * @return null
      */
     public function setMatchMode($mode)
@@ -94,7 +94,7 @@ class Sphinxsearch
      * @param int $limit  The number of results to return.
      * @param int $max    The maximum number of matches to retrieve.
      * @param int $cutoff The cutoff to stop searching at.
-     * 
+     *
      * @return null
      * \
      */
@@ -112,24 +112,25 @@ class Sphinxsearch
      * );
      *
      * @param array $weights Array of field weights.
-     * 
+     *
      * @return null
      */
     public function setFieldWeights(array $weights)
     {
         $this->_sphinx->setFieldWeights($weights);
     }
+
     /**
      * Set filter range for attribute
      *
-     * @param string  $attribute The attribute to filter.
+     * @param string $attribute The attribute to filter.
      * @param integer $min       minimal value
      * @param integer $max       maximal value
      * @param boolean $exclude   exclusion policy
-     * 
+     *
      * @return null
      */
-    public function setFilterRange ( $attribute, $min, $max, $exclude=false )    
+    public function setFilterRange($attribute, $min, $max, $exclude = false)
     {
         $this->_sphinx->SetFilterRange($attribute, $min, $max, $exclude);
     }
@@ -138,9 +139,9 @@ class Sphinxsearch
      * Set the desired search filter.
      *
      * @param string $attribute The attribute to filter.
-     * @param array  $values    The values to filter.
-     * @param bool   $exclude   Is this an exclusion filter?
-     * 
+     * @param array $values    The values to filter.
+     * @param bool $exclude   Is this an exclusion filter?
+     *
      * @return null
      */
     public function setFilter($attribute, $values, $exclude = false)
@@ -150,7 +151,7 @@ class Sphinxsearch
 
     /**
      * Reset all previously set filters.
-     * 
+     *
      * @return null
      */
     public function resetFilters()
@@ -162,75 +163,77 @@ class Sphinxsearch
      * Search for the specified query string.
      *
      * @param string $query       The query string that we are searching for.
-     * @param array  $indexes     The indexes to perform the search on.
-     * @param array  $options     The options for the query.
-     * @param bool   $escapeQuery Should the query string be escaped?
+     * @param array $indexes     The indexes to perform the search on.
+     * @param array $options     The options for the query.
+     * @param bool $escapeQuery Should the query string be escaped?
      *
      * @return array The results of the search.
+     *
+     * @throws \RuntimeException
      */
     public function search($query, array $indexes, array $options = array(), $escapeQuery = true)
     {
-        if( $escapeQuery )
+        if ($escapeQuery)
             $query = $this->_sphinx->escapeString($query);
 
         /**
          * Build the list of indexes to be queried.
          */
         $indexNames = '';
-        foreach ( $indexes as $key => $value ) {
-            if(in_array($value, $this->_indexes))
-
+        foreach ($indexes as $key => $value) {
+            if (in_array($value, $this->_indexes)) {
                 $indexNames .= $value . ' ';
+            }
         }
 
         /**
          * If no valid indexes were specified, return an empty result set.
-         *
-         * FIXME: This should probably throw an exception.
          */
-        if( empty($indexNames) )
-            return array();
+        if (empty($indexNames)) {
+            throw new \RuntimeException('No indexes matched');
+        }
 
         /**
          * Set the offset and limit for the returned results.
          */
-        if( isset($options['result_offset']) && isset($options['result_limit']) )
+        if (isset($options['result_offset']) && isset($options['result_limit']))
             $this->_sphinx->setLimits($options['result_offset'], $options['result_limit']);
 
         /**
          * Weight the individual fields.
          */
-        if( isset($options['field_weights']) )
+        if (isset($options['field_weights']))
             $this->_sphinx->setFieldWeights($options['field_weights']);
 
         /**
          * Perform the query.
          */
         $results = $this->_sphinx->query($query, $indexNames);
-        if( $results['status'] !== SEARCHD_OK )
+
+        if (!is_array($results) OR $results['status'] !== SEARCHD_OK)
             throw new \RuntimeException(sprintf('Searching index "%s" for "%s" failed with error "%s".', $label, $query, $this->_sphinx->getLastError()));
 
-        return $results;
+        return new SearchResult($results);
     }
 
     /**
      * Adds a query to a multi-query batch using current settings.
      *
      * @param string $query   The query string that we are searching for.
-     * @param array  $indexes The indexes to perform the search on.
-     * 
+     * @param array $indexes The indexes to perform the search on.
+     *
      * @return null
      */
     public function addQuery($query, array $indexes)
     {
         $indexNames = '';
-        foreach ( $indexes as $key => $value ) {
-            if(in_array($value, $this->_indexes))
+        foreach ($indexes as $key => $value) {
+            if (in_array($value, $this->_indexes))
 
                 $indexNames .= $value . ' ';
         }
 
-        if( !empty($indexNames) )
+        if (!empty($indexNames))
             $this->_sphinx->addQuery($query, $indexNames);
     }
 
