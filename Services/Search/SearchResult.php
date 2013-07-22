@@ -8,7 +8,7 @@
 namespace Lostedboy\SphinxsearchBundle\Services\Search;
 
 
-class SearchResult extends \ArrayIterator
+class SearchResult implements \Iterator
 {
     /**
      * Query results.
@@ -16,6 +16,8 @@ class SearchResult extends \ArrayIterator
      * @var array
      */
     private $data = array();
+
+    private $results = array();
 
     /**
      * Load query data to object.
@@ -25,8 +27,18 @@ class SearchResult extends \ArrayIterator
     public function __construct(array $data = array())
     {
         $this->data = $data;
+        $this->results = $this->getResults();
     }
 
+    /**
+     * Count results.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->isEmpty() ? 0 : (int)$this->data['total'];
+    }
     /**
      * Check to see if an error occurred.
      *
@@ -34,7 +46,7 @@ class SearchResult extends \ArrayIterator
      */
     public function isValid()
     {
-        return !empty($this->data) AND isset($data['error']) AND empty($data['error']);
+        return !empty($this->data) AND empty($this->data['error']);
     }
 
     /**
@@ -44,7 +56,7 @@ class SearchResult extends \ArrayIterator
      */
     public function isEmpty()
     {
-        return isset($data['total']) AND $data['total'] == '0';
+        return isset($this->data['total']) AND $this->data['total'] == '0';
     }
 
     /**
@@ -90,14 +102,42 @@ class SearchResult extends \ArrayIterator
     }
 
     /**
-     * Get current result item.
-     *
-     * @return array|void
+     * {@inheritdoc}
+     */
+    public function rewind()
+    {
+        reset($this->results);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function key()
+    {
+        return key($this->results);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function next()
+    {
+        return next($this->results);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function valid()
+    {
+        return $this->current() !== false;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function current()
     {
-        if ($this->isValid() AND !$this->isEmpty()) {
-            return $this->getResults[$this->key()];
-        }
+        return current($this->results);
     }
 }
