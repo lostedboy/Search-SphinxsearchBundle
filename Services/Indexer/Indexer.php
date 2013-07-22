@@ -1,6 +1,6 @@
 <?php
 
-namespace emgiezet\SphinxsearchBundle\Services\Indexer;
+namespace lostedboy\SphinxsearchBundle\Services\Indexer;
 
 use Assetic\Util\ProcessBuilder;
 

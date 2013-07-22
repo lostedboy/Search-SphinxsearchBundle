@@ -1,27 +1,23 @@
 {
-  "name": "emgiezet/sphinxsearch-bundle",
+  "name": "lostedboy/sphinxsearch-bundle",
   "type": "symfony-bundle",
   "description": "Sphinx search bundle for Symfony 2",
   "keywords": ["sphinx", "sphinxsearch", "symfony2"],
-  "homepage": "https://github.com/emgiezet/Search-SphinxsearchBundle",
+  "homepage": "https://github.com/lostedboy/Search-SphinxsearchBundle",
   "license": "BSD-2-Clause",
   "authors": [
     {
-      "name": "Ryan Rogers",
-      "email": "ryan@timewasted.me"
+      "name": "Alexander Egurtsov",
+      "email": "lostboy2@yandex.ru"
     },
-    {
-      "name": "Max Malecki",
-      "email": "maxmalecki@gmail.com"
-    }
   ],
   "require": {
     "php": ">=5.3.3"
   },
   "autoload": {
     "psr-0": {
-      "emgiezet\\SphinxsearchBundle": ""
+      "lostedboy\\SphinxsearchBundle": ""
     }
   },
-  "target-dir": "emgiezet/SphinxsearchBundle"
+  "target-dir": "lostedboy/SphinxsearchBundle"
 }

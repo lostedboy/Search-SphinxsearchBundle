@@ -1,6 +1,6 @@
 <?php
 
-namespace emgiezet\SphinxsearchBundle;
+namespace lostedboy\SphinxsearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
