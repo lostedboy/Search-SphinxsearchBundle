@@ -1,6 +1,6 @@
 <?php
 
-namespace lostedboy\SphinxsearchBundle\Services\Search;
+namespace Lostedboy\SphinxsearchBundle\Services\Search;
 
 /**
  * 

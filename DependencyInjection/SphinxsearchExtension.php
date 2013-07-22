@@ -1,6 +1,6 @@
 <?php
 
-namespace lostedboy\SphinxsearchBundle\DependencyInjection;
+namespace Lostedboy\SphinxsearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;

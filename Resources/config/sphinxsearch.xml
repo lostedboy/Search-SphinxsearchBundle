@@ -5,8 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="search.sphinxsearch.indexer.class">lostedboy\SphinxsearchBundle\Services\Indexer\Indexer</parameter>
-        <parameter key="search.sphinxsearch.search.class">lostedboy\SphinxsearchBundle\Services\Search\Sphinxsearch</parameter>
+        <parameter key="search.sphinxsearch.indexer.class">Lostedboy\SphinxsearchBundle\Services\Indexer\Indexer</parameter>
+        <parameter key="search.sphinxsearch.search.class">Lostedboy\SphinxsearchBundle\Services\Search\Sphinxsearch</parameter>
     </parameters>
 
     <services>
