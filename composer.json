@@ -9,7 +9,7 @@
     {
       "name": "Alexander Egurtsov",
       "email": "lostboy2@yandex.ru"
-    },
+    }
   ],
   "require": {
     "php": ">=5.3.3"
