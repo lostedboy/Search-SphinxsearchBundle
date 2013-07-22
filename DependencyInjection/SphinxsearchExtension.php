@@ -45,6 +45,13 @@ class SphinxsearchExtension extends Extension
             $container->setParameter('search.sphinxsearch.searchd.port', $config['searchd']['port']);
             $container->setParameter('search.sphinxsearch.searchd.socket', $config['searchd']['socket']);
         }
+
+        /**
+         * Api
+         */
+        if( isset($config['api']) ) {
+            $container->setParameter('search.sphinxsearch.api.path', $config['api']['path']);
+        }
     }
 
     public function getAlias()
