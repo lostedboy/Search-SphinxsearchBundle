@@ -1,10 +1,8 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
  * User: Alexander Egurtsov
  * Date: 7/22/13
  * Time: 6:24 PM
- * To change this template use File | Settings | File Templates.
  */
 
 namespace Lostedboy\SphinxsearchBundle\Services\Search;

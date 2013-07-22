@@ -167,7 +167,7 @@ class Sphinxsearch
      * @param array $options     The options for the query.
      * @param bool $escapeQuery Should the query string be escaped?
      *
-     * @return array The results of the search.
+     * @return SearchResult The results of the search.
      *
      * @throws \RuntimeException
      */
