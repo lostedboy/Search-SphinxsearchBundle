@@ -1,7 +1,10 @@
 About SphinxsearchBundle
 ========================
 
-This is a fork. With updated service methods to cover more in the sphinx api.
+This is a fork.
+Features added:
+- changable sphinxapi
+- woking SPH_MATCH_EXTENDED2 mode
 
 Installation:
 -------------
@@ -26,6 +29,8 @@ sphinxsearch:
         socket: %sphinxsearch_socket%
     indexer:
         bin:    %sphinxsearch_indexer_bin%
+    api:
+        path: %sphinxapi_file_path%
 ```
 
 At least one index must be defined, and you may define as many as you like.
