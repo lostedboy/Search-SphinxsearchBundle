@@ -87,6 +87,16 @@ class Sphinxsearch
         $this->_sphinx->setMatchMode($mode);
     }
 
+    public function setSortMode($mode, $field)
+    {
+        $this->_sphinx->setSortMode($mode, $field);
+    }
+
+    public function resetSortMode()
+    {
+        $this->_sphinx->_sortby = '';
+    }
+
     /**
      * Set limits on the range and number of results returned.
      *
@@ -211,7 +221,7 @@ class Sphinxsearch
         $results = $this->_sphinx->query($query, $indexNames);
 
         if (!is_array($results) OR $results['status'] !== SEARCHD_OK)
-            throw new \RuntimeException(sprintf('Searching index "%s" for "%s" failed with error "%s".', $label, $query, $this->_sphinx->getLastError()));
+            throw new \RuntimeException(sprintf('Searching index "%s" for "%s" failed with error "%s".', $indexNames, $query, $this->_sphinx->getLastError()));
 
         return new SearchResult($results);
     }
