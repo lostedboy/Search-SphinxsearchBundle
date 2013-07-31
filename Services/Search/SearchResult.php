@@ -8,7 +8,7 @@
 namespace Lostedboy\SphinxsearchBundle\Services\Search;
 
 
-class SearchResult implements \Iterator
+class SearchResult implements \Iterator, \ArrayAccess
 {
     /**
      * Query results.
@@ -139,5 +139,37 @@ class SearchResult implements \Iterator
     public function current()
     {
         return current($this->results);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->results[$offset]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->results[$offset];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        return $this->results[$offset] = $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->results[$offset]);
     }
 }
