@@ -256,4 +256,23 @@ class Sphinxsearch
     {
         return $this->_sphinx->runQueries();
     }
+
+    /**
+     * Get index list or one index.
+     *
+     * @param null $name
+     * @return array|null
+     */
+    public function getIndex($name = null)
+    {
+        if (is_null($name)){
+            return $this->_indexes;
+        }
+
+        if(isset($this->_indexes[$name])){
+            return $this->_indexes[$name];
+        }
+
+        return null;
+    }
 }
