@@ -10,17 +10,17 @@ class Sphinxsearch
     /**
      * @var string $host
      */
-    private $_host;
+    protected $_host;
 
     /**
      * @var string $port
      */
-    private $_port;
+    protected $_port;
 
     /**
      * @var string $socket
      */
-    private $_socket;
+    protected $_socket;
 
     /**
      * @var array $indexes
@@ -32,12 +32,12 @@ class Sphinxsearch
      *   ...,
      * );
      */
-    private $_indexes;
+    protected $_indexes;
 
     /**
-     * @var SphinxClient $sphinx
+     * @var \SphinxClient $sphinx
      */
-    private $_sphinx;
+    protected $_sphinx;
 
     /**
      * Constructor.
@@ -167,6 +167,48 @@ class Sphinxsearch
     public function resetFilters()
     {
         $this->_sphinx->resetFilters();
+    }
+
+    /**
+     * Set the format of the search result array:
+     *  $arrayResult = FALSE (default): Result will be a hash indexed by document ids
+     *  $arrayResult = TRUE:            Result will be an array where document ids are provided as '@id' attribute.
+     *
+     * @param bool $arrayResult     should be TRUE or FALSE
+     */
+    public function setArrayResult($arrayResult)
+    {
+        $this->_sphinx->SetArrayResult($arrayResult);
+    }
+
+    /**
+     * Set grouping
+     *
+     * @param string $attribute
+     * @param string $func
+     * @param string $groupSort
+     */
+    public function setGroupBy($attribute, $func, $groupSort = '@groupby desc')
+    {
+        $this->_sphinx->SetGroupBy($attribute, $func, $groupSort);
+    }
+
+    /**
+     * Disable grouping
+     */
+    public function resetGroupBy()
+    {
+        $this->_sphinx->ResetGroupBy();
+    }
+
+    /**
+     * Count the number of distinct attribute2 values per group while grouping by some other attribute @see setGroupBy()
+     *
+     * @param string $attribute2
+     */
+    public function setGroupDistinct($attribute2)
+    {
+        $this->_sphinx->SetGroupDistinct($attribute2);
     }
 
     /**
