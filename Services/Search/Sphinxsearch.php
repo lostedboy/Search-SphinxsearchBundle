@@ -87,6 +87,17 @@ class Sphinxsearch
         $this->_sphinx->setMatchMode($mode);
     }
 
+    /**
+     * Set the ranking mode
+     *
+     * @param int $ranker   SPH_RANK_* constant
+     * @param string $rankExpr
+     */
+    public function setRankingMode($ranker, $rankExpr = '')
+    {
+        $this->_sphinx->SetRankingMode($ranker, $rankExpr);
+    }
+
     public function setSortMode($mode, $field)
     {
         $this->_sphinx->setSortMode($mode, $field);
