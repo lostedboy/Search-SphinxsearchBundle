@@ -76,6 +76,16 @@ class Sphinxsearch
     }
 
     /**
+     * Set the list of attributes/expressions to be selected
+     *
+     * @param string $select
+     */
+    public function setSelect($select)
+    {
+        $this->_sphinx->SetSelect($select);
+    }
+
+    /**
      * Set the desired match mode.
      *
      * @param int $mode The matching mode to be used.
