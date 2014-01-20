@@ -167,6 +167,21 @@ class Sphinxsearch
     }
 
     /**
+     * Set filter range for a floating-point attribute
+     *
+     * @param string $attribute The attribute to filter.
+     * @param integer $min       minimal value
+     * @param integer $max       maximal value
+     * @param boolean $exclude   exclusion policy
+     *
+     * @return null
+     */
+    public function setFilterFloatRange($attribute, $min, $max, $exclude = false)
+    {
+        $this->_sphinx->SetFilterFloatRange($attribute, $min, $max, $exclude);
+    }
+
+    /**
      * Set the desired search filter.
      *
      * @param string $attribute The attribute to filter.
